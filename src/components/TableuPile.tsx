@@ -1,24 +1,10 @@
 import React, { memo } from "react";
-import { CardEntity } from "App";
 import Card from "./Card";
 import { useDrop } from "react-dnd";
-import { State } from "reducers/gameReducer";
+import { PlayingCard, CardState, DraggedItem, Pile } from "models/game";
+import { getOffSet } from "utils";
 
-interface TableuPile {
-  cards: CardEntity[];
-  index: number;
-}
-
-export const getOffSet = (index: number): number => {
-  return index > 0 ? index * 35 : 0;
-};
-
-interface DraggedItem {
-  type?: string;
-  card?: CardEntity;
-}
-
-const getDroppable = (item: DraggedItem, cards: CardEntity[]): boolean => {
+const getDroppable = (item: DraggedItem, cards: PlayingCard[]): boolean => {
   if (cards.length === 0 && item && item.card && item.card.rank === 13) {
     return true;
   } else if (cards.length === 0) {
@@ -35,8 +21,8 @@ const getDroppable = (item: DraggedItem, cards: CardEntity[]): boolean => {
 };
 
 export const TableuPile = memo(
-  ({ cards, index }: TableuPile): JSX.Element => {
-    const nextState = State.TableuPile;
+  ({ cards, index }: Pile): JSX.Element => {
+    const nextState = CardState.TableuPile;
     const [{ canDrop, isOver }, drop] = useDrop({
       accept: "CARD",
       canDrop: (item: any) => getDroppable(item, cards),
@@ -48,18 +34,8 @@ export const TableuPile = memo(
     });
 
     return (
-      <div
-        ref={drop}
-        style={{
-          width: "150.65px",
-          height: "238px",
-          border: "1px solid black",
-          borderRadius: 10,
-          marginRight: 10,
-          position: "relative"
-        }}
-      >
-        {cards.map((card: CardEntity, i: number) => (
+      <div ref={drop} className="drop-target">
+        {cards.map((card: PlayingCard, i: number) => (
           <Card offset={getOffSet(i)} key={card.id} card={card} />
         ))}
       </div>

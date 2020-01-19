@@ -15,4 +15,67 @@ code {
 html {
   height: 100%;
   min-height: 100%;
+  max-height: 100vh;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 220px 100%;
+}
+
+.card {
+  position: absolute;
+  width: 120px;
+  height: auto;
+}
+
+.deck {
+  width: 120px;
+  height: auto;
+}
+
+.talon {
+  margin-left: 10px;
+}
+
+.drop-target {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-right: 10px;
+  position: relative;
+  height: 180px;
+  width: 120px;
+}
+
+#root {
+  height: 100%;
+  min-height: 100%;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.top-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1050px) {
+  .card {
+    width: 80px;
+  }
+
+  .deck {
+    width: 80px;
+  }
+
+  .drop-target {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-right: 10px;
+    position: relative;
+    height: 124px;
+    width: 80px;
+  }
 }

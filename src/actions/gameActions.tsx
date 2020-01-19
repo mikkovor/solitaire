@@ -1,20 +1,23 @@
-import { CardEntity } from "App";
-import { State } from "reducers/gameReducer";
+import { PlayingCard, CardState } from "models/game";
 
 export enum GameActionTypes {
   FoundationAddCards = "foundation/AddCards",
   TableuPileAddCards = "tableuPile/AddCards",
   TurnCard = "tableuPile/TurnCard",
   DrawCard = "deck/DrawCard",
-  NewGame = "game/NewGame"
+  NewGame = "game/NewGame",
+  CardIsDragged = "cards/CardIsDragged"
 }
 
-export type GameActions = AddCardsToFoundation | AddCardsToTableuPile | TurnCard | DrawCard | StartNewGame;
-
 type CardsPayload = {
-  movedCard: CardEntity;
+  movedCard: PlayingCard;
   index: number;
-  nextState: State;
+  nextState: CardState;
+};
+
+type CardDragPayload = {
+  movedCard: PlayingCard;
+  isDragging: boolean;
 };
 
 type TurnCardPayload = {
@@ -22,9 +25,9 @@ type TurnCardPayload = {
   id: string;
 };
 
-type NewGamePayload = {
-  tableuPiles: CardEntity[][];
-  deck: CardEntity[];
+export type NewGamePayload = {
+  tableuPiles: PlayingCard[][];
+  deck: PlayingCard[];
 };
 
 type AddCardsToFoundation = {
@@ -37,7 +40,7 @@ type AddCardsToTableuPile = {
   readonly payload: CardsPayload;
 };
 
-type TurnCard = {
+export type TurnCard = {
   readonly type: GameActionTypes.TurnCard;
   readonly payload: TurnCardPayload;
 };
@@ -49,6 +52,11 @@ export type DrawCard = {
 type StartNewGame = {
   readonly type: GameActionTypes.NewGame;
   readonly payload: NewGamePayload;
+};
+
+type CardIsDragged = {
+  readonly type: GameActionTypes.CardIsDragged;
+  readonly payload: CardDragPayload;
 };
 
 export const addCardsToFoundation = (payload: CardsPayload): AddCardsToFoundation => ({
@@ -72,3 +80,16 @@ export const startNewGame = (payload: NewGamePayload): StartNewGame => ({
   type: GameActionTypes.NewGame,
   payload
 });
+
+export const cardIsDragged = (payload: CardDragPayload): CardIsDragged => ({
+  type: GameActionTypes.CardIsDragged,
+  payload
+});
+
+export type GameActions =
+  | AddCardsToFoundation
+  | AddCardsToTableuPile
+  | TurnCard
+  | DrawCard
+  | StartNewGame
+  | CardIsDragged;

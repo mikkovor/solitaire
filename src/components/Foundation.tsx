@@ -1,23 +1,34 @@
 import React, { useState, memo } from "react";
 import { useDrop } from "react-dnd";
-import { CardEntity } from "App";
 import { Card } from "./Card";
-import { State } from "reducers/gameReducer";
+import { PlayingCard, CardState } from "models/game";
+import { useSelector } from "react-redux";
+import { selectTableuPiles } from "reducers/gameReducer";
 
 interface DraggedItem {
-  type?: string;
-  card?: CardEntity;
+  type: string;
+  card: PlayingCard;
 }
 
 interface FoundationProps {
-  cards: CardEntity[];
+  cards: PlayingCard[];
   index: number;
   foundationSuit: string;
   nextCard: number;
 }
 
-const getDroppable = (item: DraggedItem, cards: CardEntity[], nextCard: number, foundationSuit: string): boolean => {
+const getDroppable = (
+  item: DraggedItem,
+  nextCard: number,
+  foundationSuit: string,
+  tableuPile: PlayingCard[]
+): boolean => {
   const id = item.card?.id;
+  if (item && item.card && item.card.state === CardState.TableuPile) {
+    if (item.card.id !== tableuPile[tableuPile.length - 1].id) {
+      return false;
+    }
+  }
   if (id === `${nextCard}${foundationSuit}`) {
     return true;
   }
@@ -26,10 +37,11 @@ const getDroppable = (item: DraggedItem, cards: CardEntity[], nextCard: number, 
 
 export const Foundation = memo(
   ({ cards, index, foundationSuit, nextCard }: FoundationProps): JSX.Element => {
-    const nextState = State.Foundation;
+    const nextState = CardState.Foundation;
+    const tableuPiles = useSelector(selectTableuPiles);
     const [{ canDrop, isOver }, drop] = useDrop({
       accept: "CARD",
-      canDrop: (item: any) => getDroppable(item, cards, nextCard, foundationSuit),
+      canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
       drop: () => ({ index, nextState }),
       collect: monitor => ({
         isOver: monitor.isOver(),
@@ -38,17 +50,8 @@ export const Foundation = memo(
     });
 
     return (
-      <div
-        ref={drop}
-        style={{
-          width: "150.65px",
-          height: "238px",
-          border: "1px solid black",
-          borderRadius: 10,
-          marginRight: 10
-        }}
-      >
-        {cards.map((card: CardEntity) => (
+      <div ref={drop} className="drop-target">
+        {cards.map((card: PlayingCard) => (
           <Card offset={0} key={card.id} card={card} />
         ))}
       </div>

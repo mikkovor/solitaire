@@ -1,19 +1,14 @@
-import { CardEntity } from "App";
 import produce from "immer";
 import { GameActions, GameActionTypes } from "actions/gameActions";
 import { RootState } from "store";
+import { CardState, PlayingCard } from "models/game";
+import Card from "components/Card";
 
 interface GameState {
-  foundations: CardEntity[][];
-  tableuPiles: CardEntity[][];
-  deck: CardEntity[];
-  waste: CardEntity[];
-}
-
-export enum State {
-  TableuPile,
-  Deck,
-  Foundation
+  foundations: PlayingCard[][];
+  tableuPiles: PlayingCard[][];
+  deck: PlayingCard[];
+  waste: PlayingCard[];
 }
 
 export const initialState: GameState = {
@@ -25,14 +20,16 @@ export const initialState: GameState = {
 
 export const gameReducer = (state = initialState, action: GameActions): GameState => {
   switch (action.type) {
+    //Add dragged card(s) to foundation and remove from source
     case GameActionTypes.FoundationAddCards:
       return produce(state, draft => {
         draft.foundations[action.payload.index].push({
           ...action.payload.movedCard,
-          state: State.Foundation,
-          index: action.payload.index
+          state: CardState.Foundation,
+          index: action.payload.index,
+          isDragging: false
         });
-        if (action.payload.movedCard.state === State.Deck) {
+        if (action.payload.movedCard.state === CardState.Deck) {
           draft.waste = draft.waste.filter(card => card.id !== action.payload.movedCard.id);
         } else {
           draft.tableuPiles[action.payload.movedCard.index] = draft.tableuPiles[action.payload.movedCard.index].filter(
@@ -40,25 +37,27 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
           );
         }
       });
+    //Add dragged card(s) to tableuPile and remove from source
     case GameActionTypes.TableuPileAddCards:
       return produce(state, draft => {
-        if (action.payload.movedCard.state === State.TableuPile) {
+        if (action.payload.movedCard.state === CardState.TableuPile) {
           const indexOfCard = draft.tableuPiles[action.payload.movedCard.index].findIndex(
             card => card.id === action.payload.movedCard.id
           );
           const cardsToAdd = draft.tableuPiles[action.payload.movedCard.index]
             .slice(indexOfCard)
-            .map(card => ({ ...card, index: action.payload.index }));
+            .map(card => ({ ...card, index: action.payload.index, isDragging: false }));
           const cardsLeft = draft.tableuPiles[action.payload.movedCard.index].slice(0, indexOfCard);
           draft.tableuPiles[action.payload.index] = [...draft.tableuPiles[action.payload.index], ...cardsToAdd];
           draft.tableuPiles[action.payload.movedCard.index] = cardsLeft;
         } else {
           draft.tableuPiles[action.payload.index].push({
             ...action.payload.movedCard,
-            state: State.TableuPile,
-            index: action.payload.index
+            state: CardState.TableuPile,
+            index: action.payload.index,
+            isDragging: false
           });
-          if (action.payload.movedCard.state === State.Deck) {
+          if (action.payload.movedCard.state === CardState.Deck) {
             draft.waste = draft.waste.filter(card => card.id !== action.payload.movedCard.id);
           } else {
             draft.foundations[action.payload.movedCard.index] = draft.foundations[
@@ -92,12 +91,41 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
         draft.tableuPiles = action.payload.tableuPiles;
         draft.deck = action.payload.deck;
       });
+
+    case GameActionTypes.CardIsDragged:
+      return produce(state, draft => {
+        switch (action.payload.movedCard.state) {
+          case CardState.Deck:
+            draft.waste = draft.waste.map(card =>
+              card.id === action.payload.movedCard.id ? { ...card, isDragging: action.payload.isDragging } : { ...card }
+            );
+            break;
+          case CardState.Foundation:
+            draft.foundations[action.payload.movedCard.index] = draft.foundations[
+              action.payload.movedCard.index
+            ].map(card =>
+              card.id === action.payload.movedCard.id ? { ...card, isDragging: action.payload.isDragging } : { ...card }
+            );
+            break;
+          case CardState.TableuPile:
+            const indexOfCard = draft.tableuPiles[action.payload.movedCard.index].findIndex(
+              card => card.id === action.payload.movedCard.id
+            );
+
+            draft.tableuPiles[action.payload.movedCard.index] = draft.tableuPiles[
+              action.payload.movedCard.index
+            ].map((card, index) =>
+              index >= indexOfCard ? { ...card, isDragging: action.payload.isDragging } : { ...card }
+            );
+            break;
+        }
+      });
     default:
       return state;
   }
 };
 
-export const selectWaste = (state: RootState): CardEntity[] => state.game.waste;
-export const selectDeck = (state: RootState): CardEntity[] => state.game.deck;
-export const selectFoundations = (state: RootState): CardEntity[][] => state.game.foundations;
-export const selectTableuPiles = (state: RootState): CardEntity[][] => state.game.tableuPiles;
+export const selectWaste = (state: RootState): PlayingCard[] => state.game.waste;
+export const selectDeck = (state: RootState): PlayingCard[] => state.game.deck;
+export const selectFoundations = (state: RootState): PlayingCard[][] => state.game.foundations;
+export const selectTableuPiles = (state: RootState): PlayingCard[][] => state.game.tableuPiles;
