@@ -1,18 +1,24 @@
 import { PlayingCard, CardState } from "models/game";
 
 export enum GameActionTypes {
-  FoundationAddCards = "foundation/AddCards",
-  TableuPileAddCards = "tableuPile/AddCards",
-  TurnCard = "tableuPile/TurnCard",
-  DrawCard = "deck/DrawCard",
+  FoundationAddCards = "game/AddToFoundationCards",
+  TableuPileAddCards = "game/AddToTableuPileCards",
+  TurnCard = "game/TurnCard",
+  DrawCard = "game/DrawCard",
   NewGame = "game/NewGame",
-  CardIsDragged = "cards/CardIsDragged"
+  CardIsDragged = "game/CardIsDragged",
+  CardDoubleClicked = "game/HandleDoubleClick",
+  UndoMove = "game/UndoMove"
 }
 
 type CardsPayload = {
   movedCard: PlayingCard;
   index: number;
   nextState: CardState;
+};
+
+type CardDoubleClickedPayload = {
+  doubleClickedCard: PlayingCard;
 };
 
 type CardDragPayload = {
@@ -49,6 +55,10 @@ export type DrawCard = {
   readonly type: GameActionTypes.DrawCard;
 };
 
+export type UndoMove = {
+  readonly type: GameActionTypes.UndoMove;
+};
+
 type StartNewGame = {
   readonly type: GameActionTypes.NewGame;
   readonly payload: NewGamePayload;
@@ -57,6 +67,11 @@ type StartNewGame = {
 type CardIsDragged = {
   readonly type: GameActionTypes.CardIsDragged;
   readonly payload: CardDragPayload;
+};
+
+export type CardDoubleClicked = {
+  readonly type: GameActionTypes.CardDoubleClicked;
+  readonly payload: CardDoubleClickedPayload;
 };
 
 export const addCardsToFoundation = (payload: CardsPayload): AddCardsToFoundation => ({
@@ -86,10 +101,19 @@ export const cardIsDragged = (payload: CardDragPayload): CardIsDragged => ({
   payload
 });
 
+export const handleDoubleClick = (payload: CardDoubleClickedPayload): CardDoubleClicked => ({
+  type: GameActionTypes.CardDoubleClicked,
+  payload
+});
+
+export const undoMove = (): UndoMove => ({ type: GameActionTypes.UndoMove });
+
 export type GameActions =
   | AddCardsToFoundation
   | AddCardsToTableuPile
   | TurnCard
   | DrawCard
   | StartNewGame
-  | CardIsDragged;
+  | CardIsDragged
+  | CardDoubleClicked
+  | UndoMove;

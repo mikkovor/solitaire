@@ -6,6 +6,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
   min-height: 100%;
+  background-image: url("/solitaire-bg.jpg");
+}
+
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+
+  /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+  -ms-user-select: none;
+  user-select: none;
 }
 
 code {
@@ -39,12 +53,23 @@ html {
 }
 
 .drop-target {
-  border: 1px solid black;
-  border-radius: 10px;
   margin-right: 10px;
   position: relative;
-  height: 180px;
+  height: 186.33px;
   width: 120px;
+}
+
+.card-border {
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 97%;
+  width: 97%;
+  border-radius: 10px;
+}
+
+.foundation-suit {
 }
 
 #root {
@@ -55,13 +80,82 @@ html {
   padding-top: 24px;
   padding-bottom: 24px;
 }
+.timer-container {
+  background-color: rgba(45, 45, 45, 0.85);
+  width: 40px;
+  height: 30px;
+  padding: 0.3em 1.2em;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-right: 10px;
+  border: 1px solid black;
+  margin: 0 0 20px 0;
+  align-self: center;
+}
+
+.timer {
+  margin: 0;
+  opacity: 1;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
 
 .top-wrapper {
   display: flex;
   justify-content: space-between;
 }
 
+.top-left-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-button {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin-bottom: 12px;
+  width: 110px;
+  height: 40px;
+  border-radius: 2em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  color: #ffffff;
+  font-weight: 700;
+  background-color: #7c0785;
+  text-align: center;
+  transition: all 0.2s;
+  vertical-align: middle;
+  line-height: 1.4rem;
+  align-self: center;
+}
+
+.svg-icon {
+  vertical-align: middle;
+  align-self: center;
+  height: 1.4em;
+  width: 1.4em;
+  margin-right: 0.6em;
+}
+
+.widgets {
+  display: flex;
+  flex-direction: column;
+  margin-right: 12px;
+  align-content: flex-start;
+  height: 124.15px;
+}
+
+.game-button:hover {
+  background-color: #97389d;
+}
+
 @media screen and (max-width: 1050px) {
+  #root {
+    width: 90%;
+  }
+
   .card {
     width: 80px;
   }
@@ -71,11 +165,9 @@ html {
   }
 
   .drop-target {
-    border: 1px solid black;
-    border-radius: 10px;
     margin-right: 10px;
     position: relative;
-    height: 124px;
+    height: 124.15px;
     width: 80px;
   }
 }

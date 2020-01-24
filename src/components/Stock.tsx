@@ -8,7 +8,6 @@ export const Stock = (): JSX.Element => {
   return (
     <div style={{ display: "flex" }}>
       <picture>
-        <source srcSet={require(`../assets/sm/1B.svg`)} media="(max-width: 500px)" className="deck" />
         <img src={require(`../assets/md/1B.svg`)} onClick={(): DrawCard => dispatch(drawCard())} className="deck" />
       </picture>
       <Talon />

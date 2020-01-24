@@ -1,56 +1,22 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect } from "react";
 import { TableuPile } from "components/TableuPile";
 import { Stock } from "components/Stock";
 import { Foundation } from "components/Foundation";
 import { selectTableuPiles, selectFoundations } from "reducers/gameReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { startNewGame } from "actions/gameActions";
-import { CardState, PlayingCard, PreviewObject } from "models/game";
-import { getOffSet, suits, createNewGame } from "utils";
-import Preview from "react-dnd-preview";
+import { startNewGame, GameActions, undoMove } from "actions/gameActions";
+import { PlayingCard } from "models/game";
+import { suits, createNewGame } from "utils";
+import { RootState } from "store";
+import { CardDragPreview } from "components/CardDragPreview";
+import { Dispatch } from "redux";
+import { Timer } from "components/Timer";
+import { GameButton } from "components/GameButton";
 
-const createPreviewCards = (draggedCard: PlayingCard | null, tableuPiles: PlayingCard[][]): PlayingCard[] => {
-  if (draggedCard) {
-    const indexOfCard = tableuPiles[draggedCard.index].findIndex(card => card.id === draggedCard.id);
-    return tableuPiles[draggedCard.index].filter((card, index) => index >= indexOfCard);
-  }
-  return [];
-};
-
-const Game: React.FC = () => {
-  const dispatch = useDispatch();
-  const tableuPiles = useSelector(selectTableuPiles);
-  const foundations = useSelector(selectFoundations);
-  const [draggedCard, setDraggedCard] = useState<PlayingCard | null>(null);
-  const memoizedPreview = useMemo(() => createPreviewCards(draggedCard, tableuPiles), [draggedCard, tableuPiles]);
-
-  const generatePreview = ({ itemType, item, style }: PreviewObject): JSX.Element | undefined => {
-    if (item) {
-      setDraggedCard(item.card);
-    }
-    if (item && item.card.state === CardState.TableuPile) {
-      return (
-        <div style={{ ...style, zIndex: 50 }}>
-          {memoizedPreview.map((card, i) => (
-            <img
-              key={card.id}
-              className="card"
-              src={require(`../assets/md/${card.id}.svg`)}
-              style={{ top: getOffSet(i) }}
-            />
-          ))}
-        </div>
-      );
-    } else {
-      return (
-        <img
-          className="card"
-          src={require(`../assets/md/${item.card.id}.svg`)}
-          style={{ ...style, top: getOffSet(0), zIndex: 50 }}
-        />
-      );
-    }
-  };
+const Game: React.FC = (): JSX.Element => {
+  const dispatch = useDispatch<Dispatch<GameActions>>();
+  const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
+  const foundations = useSelector<RootState, PlayingCard[][]>(selectFoundations);
 
   useEffect(() => {
     const { tableuPiles, deck } = createNewGame();
@@ -59,10 +25,17 @@ const Game: React.FC = () => {
 
   return (
     <>
-      <Preview generator={generatePreview} />
+      <CardDragPreview tableuPiles={tableuPiles} />
       <div className="container">
         <div className="top-wrapper">
-          <Stock />
+          <div className="top-left-wrapper">
+            <div className="widgets">
+              <Timer />
+              <GameButton icon="undo" handleClick={undoMove} text="UNDO" />
+              <GameButton icon="star" handleClick={startNewGame} text="NEW" />
+            </div>
+            <Stock />
+          </div>
           <div style={{ display: "flex", justifyContent: "space-between", position: "relative" }}>
             {foundations.length &&
               foundations.map((foundation, i) => (

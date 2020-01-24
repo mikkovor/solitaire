@@ -1,9 +1,10 @@
-import React, { useState, memo } from "react";
+import React, { memo } from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { PlayingCard, CardState } from "models/game";
 import { useSelector } from "react-redux";
 import { selectTableuPiles } from "reducers/gameReducer";
+import { RootState } from "store";
 
 interface DraggedItem {
   type: string;
@@ -38,7 +39,7 @@ const getDroppable = (
 export const Foundation = memo(
   ({ cards, index, foundationSuit, nextCard }: FoundationProps): JSX.Element => {
     const nextState = CardState.Foundation;
-    const tableuPiles = useSelector(selectTableuPiles);
+    const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
     const [{ canDrop, isOver }, drop] = useDrop({
       accept: "CARD",
       canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
@@ -50,10 +51,21 @@ export const Foundation = memo(
     });
 
     return (
-      <div ref={drop} className="drop-target">
-        {cards.map((card: PlayingCard) => (
-          <Card offset={0} key={card.id} card={card} />
-        ))}
+      <div ref={drop} className="drop-target unselectable">
+        <div className="card-border">
+          <img
+            src={require(`../assets/${foundationSuit}.svg`)}
+            className="foundation-suit unselectable"
+            onDragStart={(e): void => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            width="30px"
+          />
+          {cards.map((card: PlayingCard, i: number) => (
+            <Card offset={0} key={card.id} card={card} isLastCard={i === cards.length - 1 ? true : false} />
+          ))}
+        </div>
       </div>
     );
   }

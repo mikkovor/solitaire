@@ -35,9 +35,11 @@ export const TableuPile = memo(
 
     return (
       <div ref={drop} className="drop-target">
-        {cards.map((card: PlayingCard, i: number) => (
-          <Card offset={getOffSet(i)} key={card.id} card={card} />
-        ))}
+        <div className="card-border">
+          {cards.map((card: PlayingCard, i: number) => (
+            <Card offset={getOffSet(i)} key={card.id} card={card} isLastCard={i === cards.length - 1 ? true : false} />
+          ))}
+        </div>
       </div>
     );
   }

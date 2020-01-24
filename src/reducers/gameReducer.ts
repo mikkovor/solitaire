@@ -2,20 +2,22 @@ import produce from "immer";
 import { GameActions, GameActionTypes } from "actions/gameActions";
 import { RootState } from "store";
 import { CardState, PlayingCard } from "models/game";
-import Card from "components/Card";
+import { suits } from "utils";
 
 interface GameState {
   foundations: PlayingCard[][];
   tableuPiles: PlayingCard[][];
   deck: PlayingCard[];
   waste: PlayingCard[];
+  startTime: number;
 }
 
 export const initialState: GameState = {
   foundations: [[], [], [], []],
   tableuPiles: [],
   deck: [],
-  waste: []
+  waste: [],
+  startTime: 0
 };
 
 export const gameReducer = (state = initialState, action: GameActions): GameState => {
@@ -90,6 +92,9 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
       return produce(state, draft => {
         draft.tableuPiles = action.payload.tableuPiles;
         draft.deck = action.payload.deck;
+        draft.waste = [];
+        draft.foundations = [[], [], [], []];
+        draft.startTime = Date.now();
       });
 
     case GameActionTypes.CardIsDragged:
@@ -120,12 +125,31 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
             break;
         }
       });
+    case GameActionTypes.CardDoubleClicked:
+      return produce(state, draft => {
+        const suitIndex = suits.indexOf(action.payload.doubleClickedCard.suit);
+        if (draft.foundations[suitIndex].length + 1 === action.payload.doubleClickedCard.rank) {
+          draft.foundations[suitIndex].push({
+            ...action.payload.doubleClickedCard,
+            index: suitIndex,
+            state: CardState.Foundation
+          });
+          if (action.payload.doubleClickedCard.state === CardState.TableuPile) {
+            draft.tableuPiles[action.payload.doubleClickedCard.index] = draft.tableuPiles[
+              action.payload.doubleClickedCard.index
+            ].slice(0, -1);
+          } else if (action.payload.doubleClickedCard.state === CardState.Deck) {
+            draft.waste = draft.waste.slice(1);
+          }
+        }
+      });
     default:
       return state;
   }
 };
 
-export const selectWaste = (state: RootState): PlayingCard[] => state.game.waste;
-export const selectDeck = (state: RootState): PlayingCard[] => state.game.deck;
-export const selectFoundations = (state: RootState): PlayingCard[][] => state.game.foundations;
-export const selectTableuPiles = (state: RootState): PlayingCard[][] => state.game.tableuPiles;
+export const selectWaste = (state: RootState): PlayingCard[] => state.game.present.waste;
+export const selectDeck = (state: RootState): PlayingCard[] => state.game.present.deck;
+export const selectFoundations = (state: RootState): PlayingCard[][] => state.game.present.foundations;
+export const selectTableuPiles = (state: RootState): PlayingCard[][] => state.game.present.tableuPiles;
+export const selectStartTime = (state: RootState): number => state.game.present.startTime;
