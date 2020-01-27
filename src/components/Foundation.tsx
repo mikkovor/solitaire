@@ -51,8 +51,8 @@ export const Foundation = memo(
     });
 
     return (
-      <div ref={drop} className="drop-target unselectable">
-        <div className="card-border">
+      <div ref={drop} className="drop-target unselectable talon-foundation">
+        <div className="card-border ">
           <img
             src={require(`../assets/${foundationSuit}.svg`)}
             className="foundation-suit unselectable"

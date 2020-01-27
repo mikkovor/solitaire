@@ -9,6 +9,10 @@ import { PlayingCard } from "models/game";
 export const Talon = memo(
   (): JSX.Element => {
     const waste = useSelector<RootState, PlayingCard[]>(selectWaste);
-    return <div className="talon">{waste.length > 0 && <Card card={waste[0]} offset={25} isLastCard={true} />}</div>;
+    return (
+      <div className="talon-foundation drop-target talon">
+        {waste.length > 0 && <Card card={waste[0]} isLastCard={true} />}
+      </div>
+    );
   }
 );

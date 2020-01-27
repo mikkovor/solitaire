@@ -153,3 +153,6 @@ export const selectDeck = (state: RootState): PlayingCard[] => state.game.presen
 export const selectFoundations = (state: RootState): PlayingCard[][] => state.game.present.foundations;
 export const selectTableuPiles = (state: RootState): PlayingCard[][] => state.game.present.tableuPiles;
 export const selectStartTime = (state: RootState): number => state.game.present.startTime;
+export const selectNextFoundationCards = (state: RootState): string[] => {
+  return state.game.present.foundations.map((foundation, index) => `${foundation.length + 1}${suits[index]}`);
+};

@@ -15,6 +15,7 @@ export const Timer = (): JSX.Element => {
   const startTime = useSelector(selectStartTime);
   const [gameTime, setGameTime] = useState<number>(0);
   useEffect(() => {
+    setGameTime(0);
     const interval = setInterval(() => setGameTime(Date.now() - startTime), 1000);
     return (): void => {
       clearInterval(interval);

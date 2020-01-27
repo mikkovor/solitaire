@@ -28,28 +28,28 @@ const Game: React.FC = (): JSX.Element => {
       <CardDragPreview tableuPiles={tableuPiles} />
       <div className="container">
         <div className="top-wrapper">
-          <div className="top-left-wrapper">
-            <div className="widgets">
-              <Timer />
-              <GameButton icon="undo" handleClick={undoMove} text="UNDO" />
-              <GameButton icon="star" handleClick={startNewGame} text="NEW" />
-            </div>
-            <Stock />
+          <div className="widgets">
+            <Timer />
+            <GameButton icon="undo" handleClick={undoMove} text="UNDO" />
+            <GameButton icon="star" handleClick={startNewGame} text="NEW" />
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between", position: "relative" }}>
-            {foundations.length &&
-              foundations.map((foundation, i) => (
-                <Foundation
-                  key={i.toString()}
-                  cards={foundation}
-                  index={i}
-                  foundationSuit={suits[i]}
-                  nextCard={foundation.length + 1}
-                />
-              ))}
+          <div className="top-right-wrapper">
+            <Stock />
+            <div style={{ display: "flex", justifyContent: "space-between", position: "relative" }}>
+              {foundations.length &&
+                foundations.map((foundation, i) => (
+                  <Foundation
+                    key={i.toString()}
+                    cards={foundation}
+                    index={i}
+                    foundationSuit={suits[i]}
+                    nextCard={foundation.length + 1}
+                  />
+                ))}
+            </div>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", position: "relative", height: "100%" }}>
+        <div className="tableu-piles">
           {tableuPiles.map((pile, i) => (
             <TableuPile cards={pile} key={i.toString()} index={i} />
           ))}

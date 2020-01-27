@@ -4,20 +4,12 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  min-height: 100%;
-  background-image: url("/solitaire-bg.jpg");
 }
 
 .unselectable {
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-
-  /*
-     Introduced in IE 10.
-     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
-   */
   -ms-user-select: none;
   user-select: none;
 }
@@ -28,13 +20,17 @@ code {
 
 html {
   height: 100%;
-  min-height: 100%;
-  max-height: 100vh;
+  background: url("/solitaire-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
 
 .container {
   display: grid;
   grid-template-rows: 220px 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  padding: 24px;
 }
 
 .card {
@@ -43,17 +39,15 @@ html {
   height: auto;
 }
 
-.deck {
-  width: 120px;
-  height: auto;
+.talon-foundation {
+  margin-left: 12px;
 }
 
 .talon {
-  margin-left: 10px;
+  margin-right: 32px;
 }
 
 .drop-target {
-  margin-right: 10px;
   position: relative;
   height: 186.33px;
   width: 120px;
@@ -72,14 +66,6 @@ html {
 .foundation-suit {
 }
 
-#root {
-  height: 100%;
-  min-height: 100%;
-  width: 80%;
-  margin: 0 auto;
-  padding-top: 24px;
-  padding-bottom: 24px;
-}
 .timer-container {
   background-color: rgba(45, 45, 45, 0.85);
   width: 40px;
@@ -96,7 +82,6 @@ html {
 
 .timer {
   margin: 0;
-  opacity: 1;
   font-size: 1.1rem;
   color: #ffffff;
 }
@@ -106,9 +91,10 @@ html {
   justify-content: space-between;
 }
 
-.top-left-wrapper {
+.top-right-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .game-button {
@@ -151,23 +137,100 @@ html {
   background-color: #97389d;
 }
 
-@media screen and (max-width: 1050px) {
-  #root {
-    width: 90%;
+.tableu-piles {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 940px) {
+  .container {
+    display: grid;
+    grid-template-rows: 150px 100%;
   }
 
   .card {
     width: 80px;
   }
 
-  .deck {
+  .drop-target {
+    position: relative;
+    height: 124.14px;
     width: 80px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .container {
+    grid-template-rows: 200px 100%;
+  }
+
+  .card {
+    width: 70px;
   }
 
   .drop-target {
-    margin-right: 10px;
     position: relative;
-    height: 124.15px;
-    width: 80px;
+    height: 108.63px;
+    width: 70px;
+  }
+
+  .tableu-piles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .top-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .top-left-wrapper {
+    flex-direction: row;
+  }
+
+  .widgets {
+    display: flex;
+    flex-direction: row;
+    margin-right: 12px;
+    align-content: center;
+    justify-content: space-around;
+    height: 80px;
+  }
+
+  @media screen and (max-width: 525px) {
+    .container {
+      grid-template-rows: 150px 100%;
+    }
+
+    .game-button {
+      margin-bottom: 0;
+    }
+
+    .timer-container {
+      margin-bottom: 0;
+    }
+
+    .widgets {
+      margin-right: 0;
+    }
+
+    .container {
+      padding: 8px;
+    }
+
+    .card {
+      width: 45px;
+    }
+
+    .drop-target {
+      position: relative;
+      height: 69.83px;
+      width: 45px;
+    }
+
+    .card-border {
+      height: 95%;
+      width: 95%;
+    }
   }
 }
