@@ -1,30 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectStartTime } from "reducers/gameReducer";
-
-const createTimerString = (gameTime: number): string => {
-  const seconds = ("0" + (Math.floor(gameTime / 1000) % 60)).slice(-2);
-  const minutes = ("0" + (Math.floor(gameTime / 60000) % 60)).slice(-2);
-  const hours = Math.floor(gameTime / 3600000)
-    .toString()
-    .slice(-2);
-  return `${hours}:${minutes}:${seconds}`;
-};
+import { useSelector, useDispatch } from "react-redux";
+import { selectNextFoundationCards } from "reducers/gameReducer";
+import { suits, createTimeString } from "utils";
+import { selectStartTime, selectIsGameOver } from "reducers/scoreReducer";
+import { gameIsOver } from "actions/scoreActions";
 
 export const Timer = (): JSX.Element => {
+  const dispatch = useDispatch();
   const startTime = useSelector(selectStartTime);
+  const isGameOver = useSelector(selectIsGameOver);
   const [gameTime, setGameTime] = useState<number>(0);
+  const nextFoundationCards = useSelector(selectNextFoundationCards);
+
   useEffect(() => {
-    setGameTime(0);
-    const interval = setInterval(() => setGameTime(Date.now() - startTime), 1000);
-    return (): void => {
-      clearInterval(interval);
-    };
-  }, [startTime]);
+    if (!isGameOver) {
+      setGameTime(0);
+      const interval = setInterval(() => setGameTime(Date.now() - startTime), 1000);
+      return (): void => {
+        clearInterval(interval);
+      };
+    }
+  }, [startTime, isGameOver]);
+
+  useEffect(() => {
+    if (!isGameOver && nextFoundationCards.every((nextCard, i) => nextCard === `14${suits[i]}`)) {
+      const scores = JSON.parse(localStorage.getItem("scores") || "{}") as number[];
+      if (scores && scores.length > 0) {
+        scores.push(gameTime);
+        localStorage.setItem("scores", JSON.stringify(scores));
+      } else {
+        const scores: number[] = [gameTime];
+        localStorage.setItem("scores", JSON.stringify(scores));
+      }
+      dispatch(gameIsOver(gameTime));
+    }
+  }, [nextFoundationCards, dispatch, gameTime, isGameOver]);
 
   return (
     <div className="timer-container">
-      <p className="timer">{createTimerString(gameTime)}</p>
+      <p className="timer">{createTimeString(gameTime)}</p>
     </div>
   );
 };

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="340"
+   width="224"
+   class="card"
+   face="1B"
+   preserveAspectRatio="none"
+   viewBox="-106 -164.5 224 340"
+   version="1.1"
+   id="svg34"
+   sodipodi:docname="Deck.svg"
+   inkscape:version="1.0beta2 (34b959c, 2020-01-27)">
+  <metadata
+     id="metadata38">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview36"
+     showgrid="false"
+     inkscape:snap-to-guides="false"
+     inkscape:snap-grids="false"
+     inkscape:snap-others="false"
+     inkscape:object-nodes="false"
+     inkscape:snap-nodes="false"
+     inkscape:zoom="1.7074504"
+     inkscape:cx="-94.159283"
+     inkscape:cy="165.62618"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg34" />
+  <defs
+     id="defs28">
+    <pattern
+       id="pattern60"
+       xlink:href="#B1"
+       inkscape:collect="always" />
+    <pattern
+       id="B1"
+       width="6"
+       height="6"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M3 0L6 3L3 6L0 3Z"
+         fill="black"
+         id="path25" />
+    </pattern>
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#B1-2"
+       id="pattern67"
+       patternTransform="translate(-4.1866031,-4.6639216)" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       height="6"
+       width="6"
+       id="B1-2">
+      <path
+         id="path25-9"
+         fill="black"
+         d="M3 0L6 3L3 6L0 3Z" />
+    </pattern>
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#B1-25"
+       id="pattern67-6"
+       patternTransform="translate(-6.7418731,-6.3366286)" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       height="6"
+       width="6"
+       id="B1-25">
+      <path
+         id="path25-7"
+         fill="black"
+         d="M3 0L6 3L3 6L0 3Z" />
+    </pattern>
+    <pattern
+       id="B1-2-8"
+       width="6"
+       height="6"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M3 0L6 3L3 6L0 3Z"
+         fill="black"
+         id="path25-9-2" />
+    </pattern>
+    <pattern
+       patternTransform="translate(-6.3761421,-7.9482356)"
+       id="pattern67-9"
+       xlink:href="#B1-2-2"
+       inkscape:collect="always" />
+    <pattern
+       id="B1-2-2"
+       width="6"
+       height="6"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M3 0L6 3L3 6L0 3Z"
+         fill="black"
+         id="path25-9-27" />
+    </pattern>
+    <pattern
+       patternTransform="translate(-9.6604491,-10.137765)"
+       id="pattern67-4"
+       xlink:href="#B1-2-87"
+       inkscape:collect="always" />
+    <pattern
+       id="B1-2-87"
+       width="6"
+       height="6"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M3 0L6 3L3 6L0 3Z"
+         fill="black"
+         id="path25-9-0" />
+    </pattern>
+    <pattern
+       patternTransform="translate(-12.388935,-12.673244)"
+       id="pattern67-1"
+       xlink:href="#B1-2-1"
+       inkscape:collect="always" />
+    <pattern
+       id="B1-2-1"
+       width="6"
+       height="6"
+       patternUnits="userSpaceOnUse">
+      <path
+         d="M3 0L6 3L3 6L0 3Z"
+         fill="black"
+         id="path25-9-1" />
+    </pattern>
+  </defs>
+  <rect
+     style="stroke-width:0.999997"
+     width="209.2767"
+     height="325.2308"
+     x="-91.990791"
+     y="-149.89563"
+     rx="11.999999"
+     ry="12.000003"
+     fill="#ffffff"
+     stroke="#000000"
+     id="rect30" />
+  <rect
+     style="fill:url(#pattern60);stroke-width:1"
+     fill="url(#B1)"
+     width="180.56404"
+     height="301.05334"
+     x="-76.442223"
+     y="-135.84654"
+     rx="12"
+     ry="12.000003"
+     id="rect32" />
+  <rect
+     style="stroke-width:1"
+     id="rect30-4"
+     stroke="#000000"
+     fill="#ffffff"
+     ry="12.000003"
+     rx="12"
+     y="-154.57597"
+     x="-96.190521"
+     height="329.15164"
+     width="211.66119" />
+  <rect
+     id="rect32-3"
+     ry="12.000003"
+     rx="12"
+     y="-140.52675"
+     x="-80.641945"
+     height="301.05334"
+     width="180.56404"
+     fill="url(#B1)"
+     style="fill:url(#pattern67);stroke-width:1" />
+  <rect
+     style="stroke-width:1"
+     id="rect30-7"
+     stroke="#000000"
+     fill="#ffffff"
+     ry="12.000003"
+     rx="12"
+     y="-159.55038"
+     x="-99.851982"
+     height="329.15164"
+     width="211.66119" />
+  <rect
+     id="rect32-7"
+     ry="12.000003"
+     rx="12"
+     y="-142.20532"
+     x="-83.205215"
+     height="301.05334"
+     width="180.56404"
+     fill="url(#B1)"
+     style="fill:url(#pattern67-6);stroke-width:1" />
+  <rect
+     style="stroke-width:1"
+     width="211.66119"
+     height="329.15164"
+     x="-98.386925"
+     y="-157.87183"
+     rx="12"
+     ry="12.000003"
+     fill="#ffffff"
+     stroke="#000000"
+     id="rect30-4-23" />
+  <rect
+     style="fill:url(#pattern67-9);stroke-width:1"
+     fill="url(#B1)"
+     width="180.56404"
+     height="301.05334"
+     x="-82.838348"
+     y="-143.8226"
+     rx="12"
+     ry="12.000003"
+     id="rect32-3-9" />
+  <rect
+     style="stroke-width:1"
+     width="211.66119"
+     height="329.15164"
+     x="-101.68153"
+     y="-160.06903"
+     rx="12"
+     ry="12.000003"
+     fill="#ffffff"
+     stroke="#000000"
+     id="rect30-4-1" />
+  <rect
+     style="fill:url(#pattern67-4);stroke-width:1"
+     fill="url(#B1)"
+     width="180.56404"
+     height="301.05334"
+     x="-86.132965"
+     y="-146.01982"
+     rx="12"
+     ry="12.000003"
+     id="rect32-3-2" />
+  <rect
+     style="stroke-width:1"
+     width="211.66119"
+     height="329.15164"
+     x="-104.41859"
+     y="-163.71198"
+     rx="12"
+     ry="12.000003"
+     fill="#ffffff"
+     stroke="#000000"
+     id="rect30-4-21" />
+  <rect
+     style="fill:url(#pattern67-1);stroke-width:1"
+     fill="url(#B1)"
+     width="180.56404"
+     height="301.05334"
+     x="-88.869965"
+     y="-148.56427"
+     rx="12"
+     ry="12.000003"
+     id="rect32-3-0" />
+</svg>

@@ -1,6 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { createNewGame } from "utils";
 
 interface GameButtonProps {
   handleClick: Function;
@@ -9,13 +7,11 @@ interface GameButtonProps {
 }
 
 export const GameButton = ({ icon, handleClick, text }: GameButtonProps): JSX.Element => {
-  const dispatch = useDispatch();
-  const { tableuPiles, deck } = createNewGame();
   return (
-    <button className="game-button" onClick={(): unknown => dispatch(handleClick({ tableuPiles, deck }))}>
+    <button className="game-button" onClick={(): void => handleClick()}>
       <div className="button-wrapper">
-        <img className="svg-icon" src={require(`../assets/${icon}.svg`)} />
-        <span>{text}</span>
+        <img className="svg-icon" src={require(`../assets/${icon}.svg`)} alt={icon} />
+        <span className="button-text">{text}</span>
       </div>
     </button>
   );

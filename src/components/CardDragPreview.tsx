@@ -1,7 +1,7 @@
-import React, { useMemo, useState, memo } from "react";
+import React, { useMemo, useState, memo, useCallback } from "react";
 import Preview from "react-dnd-preview";
 import { PreviewObject, CardState, PlayingCard } from "models/game";
-import { getOffSet } from "utils";
+import { getOffSet, useMedia } from "utils";
 
 const createPreviewCards = (draggedCard: PlayingCard | null, tableuPiles: PlayingCard[][]): PlayingCard[] => {
   if (draggedCard) {
@@ -21,6 +21,20 @@ export const CardDragPreview = memo(
     const [draggedCard, setDraggedCard] = useState<PlayingCard | null>(null);
     const memoizedPreview = useMemo(() => createPreviewCards(draggedCard, tableuPiles), [draggedCard, tableuPiles]);
 
+    const xs = useMedia("(max-width: 525px)");
+    const sm = useMedia("(max-width: 710px)");
+    const md = useMedia("(max-width: 940px)");
+
+    const getOffsetByMedia = useCallback((): number => {
+      if (xs) {
+        return 15;
+      } else if (sm) {
+        return 21;
+      } else if (md) {
+        return 27;
+      } else return 33;
+    }, [xs, sm, md]);
+
     const generatePreview = ({ itemType, item, style }: PreviewObject): JSX.Element => {
       if (item && item.card) {
         setDraggedCard(item.card);
@@ -30,10 +44,11 @@ export const CardDragPreview = memo(
           <div style={{ ...style, zIndex: 50 }}>
             {memoizedPreview.map((card, i) => (
               <img
+                alt={item.card.id}
                 key={card.id}
                 className="card"
                 src={require(`../assets/md/${card.id}.svg`)}
-                style={{ top: getOffSet(i) }}
+                style={{ top: getOffSet(i, getOffsetByMedia()) }}
               />
             ))}
           </div>
@@ -41,9 +56,10 @@ export const CardDragPreview = memo(
       }
       return (
         <img
+          alt={item.card.id}
           className="card"
           src={require(`../assets/md/${item.card.id}.svg`)}
-          style={{ ...style, top: getOffSet(0), zIndex: 50 }}
+          style={{ ...style, top: getOffSet(0, getOffsetByMedia()), zIndex: 50 }}
         />
       );
     };

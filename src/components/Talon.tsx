@@ -11,7 +11,7 @@ export const Talon = memo(
     const waste = useSelector<RootState, PlayingCard[]>(selectWaste);
     return (
       <div className="talon-foundation drop-target talon">
-        {waste.length > 0 && <Card card={waste[0]} isLastCard={true} />}
+        {waste.length > 0 && waste.map((card, i) => <Card key={card.id} card={card} isLastCard={i === 0} />).reverse()}
       </div>
     );
   }

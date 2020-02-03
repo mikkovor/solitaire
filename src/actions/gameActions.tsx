@@ -59,7 +59,7 @@ export type UndoMove = {
   readonly type: GameActionTypes.UndoMove;
 };
 
-type StartNewGame = {
+export type StartNewGame = {
   readonly type: GameActionTypes.NewGame;
   readonly payload: NewGamePayload;
 };

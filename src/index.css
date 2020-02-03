@@ -4,6 +4,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 .unselectable {
@@ -63,20 +64,24 @@ html {
   border-radius: 10px;
 }
 
+.foundations {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
 .foundation-suit {
 }
 
 .timer-container {
+  height: 28px;
+  width: 82px;
   background-color: rgba(45, 45, 45, 0.85);
-  width: 40px;
-  height: 30px;
-  padding: 0.3em 1.2em;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  margin-right: 10px;
+  padding: 0.3em 0.9em;
   border: 1px solid black;
-  margin: 0 0 20px 0;
+  margin: 0 0 12px;
+  border-radius: 10px;
+  text-align: center;
   align-self: center;
 }
 
@@ -91,6 +96,12 @@ html {
   justify-content: space-between;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .top-right-wrapper {
   display: flex;
   flex-direction: row;
@@ -99,11 +110,11 @@ html {
 
 .game-button {
   display: inline-block;
-  padding: 0.3em 1.2em;
-  margin-bottom: 12px;
+  padding: 0.3em 0.9em;
   width: 110px;
   height: 40px;
   border-radius: 2em;
+  margin-bottom: 10px;
   box-sizing: border-box;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
@@ -122,14 +133,22 @@ html {
   align-self: center;
   height: 1.4em;
   width: 1.4em;
-  margin-right: 0.6em;
+  margin-right: 10px;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  flex-direction: column;
 }
 
 .widgets {
   display: flex;
   flex-direction: column;
   margin-right: 12px;
-  align-content: flex-start;
+  align-content: center;
   height: 124.15px;
 }
 
@@ -145,8 +164,7 @@ html {
 
 @media screen and (max-width: 940px) {
   .container {
-    display: grid;
-    grid-template-rows: 150px 100%;
+    grid-template-rows: 200px 100%;
   }
 
   .card {
@@ -158,13 +176,38 @@ html {
     height: 124.14px;
     width: 80px;
   }
+
+  .button-container {
+    flex-direction: row;
+  }
+
+  .top-wrapper {
+    flex-direction: column-reverse;
+  }
+
+  .top-left-wrapper {
+    flex-direction: row;
+  }
+
+  .widgets {
+    display: flex;
+    flex-direction: row;
+    margin-right: 0;
+    align-content: center;
+    justify-content: space-around;
+    height: 80px;
+  }
+
+  .timer-container {
+    margin-bottom: 0;
+  }
+
+  .game-button {
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (max-width: 710px) {
-  .container {
-    grid-template-rows: 200px 100%;
-  }
-
   .card {
     width: 70px;
   }
@@ -180,30 +223,23 @@ html {
     justify-content: space-between;
     margin-bottom: 24px;
   }
-  .top-wrapper {
-    flex-direction: column-reverse;
-  }
-
-  .top-left-wrapper {
-    flex-direction: row;
-  }
-
-  .widgets {
-    display: flex;
-    flex-direction: row;
-    margin-right: 12px;
-    align-content: center;
-    justify-content: space-around;
-    height: 80px;
-  }
 
   @media screen and (max-width: 525px) {
+    .svg-icon {
+      margin-right: 0;
+    }
+
+    .button-text {
+      display: none;
+    }
+
     .container {
       grid-template-rows: 150px 100%;
     }
 
     .game-button {
       margin-bottom: 0;
+      width: 42px;
     }
 
     .timer-container {
@@ -215,17 +251,17 @@ html {
     }
 
     .container {
-      padding: 8px;
+      padding: 12px;
     }
 
     .card {
-      width: 45px;
+      width: 40px;
     }
 
     .drop-target {
       position: relative;
-      height: 69.83px;
-      width: 45px;
+      height: 62.0833px;
+      width: 40px;
     }
 
     .card-border {

@@ -5,6 +5,7 @@ import { PlayingCard, CardState } from "models/game";
 import { useSelector } from "react-redux";
 import { selectTableuPiles } from "reducers/gameReducer";
 import { RootState } from "store";
+import { typeOfCard } from "dragTypes";
 
 interface DraggedItem {
   type: string;
@@ -41,7 +42,7 @@ export const Foundation = memo(
     const nextState = CardState.Foundation;
     const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
     const [{ canDrop, isOver }, drop] = useDrop({
-      accept: "CARD",
+      accept: typeOfCard,
       canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
       drop: () => ({ index, nextState }),
       collect: monitor => ({
@@ -52,8 +53,9 @@ export const Foundation = memo(
 
     return (
       <div ref={drop} className="drop-target unselectable talon-foundation">
-        <div className="card-border ">
+        <div className="card-border">
           <img
+            alt="foundation"
             src={require(`../assets/${foundationSuit}.svg`)}
             className="foundation-suit unselectable"
             onDragStart={(e): void => {

@@ -9,15 +9,13 @@ interface GameState {
   tableuPiles: PlayingCard[][];
   deck: PlayingCard[];
   waste: PlayingCard[];
-  startTime: number;
 }
 
 export const initialState: GameState = {
   foundations: [[], [], [], []],
   tableuPiles: [],
   deck: [],
-  waste: [],
-  startTime: 0
+  waste: []
 };
 
 export const gameReducer = (state = initialState, action: GameActions): GameState => {
@@ -94,9 +92,9 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
         draft.deck = action.payload.deck;
         draft.waste = [];
         draft.foundations = [[], [], [], []];
-        draft.startTime = Date.now();
       });
 
+    // Set isDragging to true if card is being dragged to hide it from view
     case GameActionTypes.CardIsDragged:
       return produce(state, draft => {
         switch (action.payload.movedCard.state) {
@@ -152,7 +150,6 @@ export const selectWaste = (state: RootState): PlayingCard[] => state.game.prese
 export const selectDeck = (state: RootState): PlayingCard[] => state.game.present.deck;
 export const selectFoundations = (state: RootState): PlayingCard[][] => state.game.present.foundations;
 export const selectTableuPiles = (state: RootState): PlayingCard[][] => state.game.present.tableuPiles;
-export const selectStartTime = (state: RootState): number => state.game.present.startTime;
 export const selectNextFoundationCards = (state: RootState): string[] => {
   return state.game.present.foundations.map((foundation, index) => `${foundation.length + 1}${suits[index]}`);
 };
