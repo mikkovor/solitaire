@@ -66,7 +66,7 @@ export const Card = memo(
     }, [isDragging, item, dispatch]);
 
     useEffect(() => {
-      preview(getEmptyImage(), { captureDraggingState: true });
+      preview(getEmptyImage(), { captureDraggingState: false });
     }, [preview]);
 
     return (
