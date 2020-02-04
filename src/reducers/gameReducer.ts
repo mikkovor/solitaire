@@ -79,10 +79,9 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
     case GameActionTypes.DrawCard:
       return produce(state, draft => {
         if (draft.deck.length) {
-          draft.waste = [{ ...draft.deck[0] }, ...draft.waste];
-          draft.deck = draft.deck.filter((card, index) => index !== 0);
+          draft.waste.push(draft.deck.splice(0, 1)[0]);
         } else {
-          draft.deck = [...draft.waste.reverse()];
+          draft.deck = [...draft.waste];
           draft.waste = [];
         }
       });
