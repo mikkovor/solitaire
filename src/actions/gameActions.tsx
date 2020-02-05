@@ -1,4 +1,4 @@
-import { PlayingCard, CardState } from "models/game";
+import { PlayingCard, CardState } from "interfaces/game";
 
 export enum GameActionTypes {
   FoundationAddCards = "game/AddToFoundationCards",

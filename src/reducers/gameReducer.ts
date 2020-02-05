@@ -1,7 +1,7 @@
 import produce from "immer";
 import { GameActions, GameActionTypes } from "actions/gameActions";
 import { RootState } from "store";
-import { CardState, PlayingCard } from "models/game";
+import { CardState, PlayingCard } from "interfaces/game";
 import { suits } from "utils";
 
 interface GameState {
@@ -136,7 +136,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
               action.payload.doubleClickedCard.index
             ].slice(0, -1);
           } else if (action.payload.doubleClickedCard.state === CardState.Deck) {
-            draft.waste = draft.waste.slice(1);
+            draft.waste = draft.waste.slice(0, -1);
           }
         }
       });

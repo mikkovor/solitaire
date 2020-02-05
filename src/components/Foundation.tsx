@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
-import { PlayingCard, CardState } from "models/game";
+import { PlayingCard, CardState } from "interfaces/game";
 import { useSelector } from "react-redux";
 import { selectTableuPiles } from "reducers/gameReducer";
 import { RootState } from "store";

@@ -1,4 +1,4 @@
-import { PlayingCard, CardColor, CardState } from "models/game";
+import { PlayingCard, CardColor, CardState } from "interfaces/game";
 import { NewGamePayload } from "actions/gameActions";
 import { typeOfCard } from "dragTypes";
 import { useState, useEffect } from "react";

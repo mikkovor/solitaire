@@ -3,7 +3,7 @@ import { Card } from "./Card";
 import { useSelector } from "react-redux";
 import { selectWaste } from "reducers/gameReducer";
 import { RootState } from "store";
-import { PlayingCard } from "models/game";
+import { PlayingCard } from "interfaces/game";
 
 // eslint-disable-next-line react/display-name
 export const Talon = memo(
@@ -11,7 +11,8 @@ export const Talon = memo(
     const waste = useSelector<RootState, PlayingCard[]>(selectWaste);
     return (
       <div className="talon-foundation drop-target talon">
-        {waste.length > 0 && waste.map((card, i) => <Card key={card.id} card={card} isLastCard={i === 0} />)}
+        {waste.length > 0 &&
+          waste.map((card, i) => <Card key={card.id} card={card} isLastCard={i === waste.length - 1} />)}
       </div>
     );
   }

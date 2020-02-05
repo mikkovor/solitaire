@@ -5,7 +5,7 @@ import { Foundation } from "components/Foundation";
 import { selectTableuPiles, selectFoundations } from "reducers/gameReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { startNewGame, GameActions, undoMove } from "actions/gameActions";
-import { PlayingCard } from "models/game";
+import { PlayingCard } from "interfaces/game";
 import { suits, createNewGame } from "utils";
 import { RootState } from "store";
 import { CardDragPreview } from "components/CardDragPreview";

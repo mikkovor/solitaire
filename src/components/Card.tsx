@@ -9,7 +9,7 @@ import {
   cardIsDragged,
   handleDoubleClick
 } from "actions/gameActions";
-import { PlayingCard, CardState } from "models/game";
+import { PlayingCard, CardState } from "interfaces/game";
 import CardSound from "../assets/cardSlide5.wav";
 import { selectNextFoundationCards } from "reducers/gameReducer";
 import { getEmptyImage } from "react-dnd-html5-backend";

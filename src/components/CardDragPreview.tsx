@@ -1,6 +1,6 @@
 import React, { useMemo, useState, memo, useCallback } from "react";
 import Preview from "react-dnd-preview";
-import { PreviewObject, CardState, PlayingCard } from "models/game";
+import { PreviewObject, CardState, PlayingCard } from "interfaces/game";
 import { getOffSet, useMedia } from "utils";
 
 const createPreviewCards = (draggedCard: PlayingCard | null, tableuPiles: PlayingCard[][]): PlayingCard[] => {

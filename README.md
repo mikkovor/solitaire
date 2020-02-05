@@ -24,7 +24,7 @@ I had thought about using a middleware of sorts (Redux-Saga for example) where i
 * Sometimes clicking the deck there's a delay of some milliseconds, don't know why. 
 * Add scores, though i only ever used the time personally
 * Adding some sort of backend and db to track high scores would be sweet but protecting it from cheating seems like a hard thing to do. Would be an interesting thing to try. 
-* Using some of sort of typed action creator instead of manually typing every one of them would be ideal
+* Using some of sort of typed action creator instead of manually creating every one of them would be ideal
 * Create some tests     
   
 #### Assets used
