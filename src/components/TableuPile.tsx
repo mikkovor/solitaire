@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import Card from "./Card";
-import { useDrop, DragObjectWithType } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { PlayingCard, CardState, DraggedItem, Pile } from "interfaces/game";
 import { getOffSet, useMedia } from "utils";
 import { typeOfCard } from "dragTypes";
