@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { useDrop } from "react-dnd";
 import { Card } from "./Card";
 import { PlayingCard, CardState } from "interfaces/game";
@@ -40,10 +40,14 @@ const getDroppable = (
 export const Foundation = ({ cards, index, foundationSuit, nextCard }: FoundationProps): JSX.Element => {
   const nextState = CardState.Foundation;
   const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
+  // eslint-disable-next-line
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: typeOfCard,
     canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
-    drop: () => ({ index, nextState }),
+    drop: () => ({
+      index,
+      nextState
+    }),
     collect: monitor => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop()

@@ -1,6 +1,6 @@
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import Card from "./Card";
-import { useDrop } from "react-dnd";
+import { useDrop, DragObjectWithType } from "react-dnd";
 import { PlayingCard, CardState, DraggedItem, Pile } from "interfaces/game";
 import { getOffSet, useMedia } from "utils";
 import { typeOfCard } from "dragTypes";
@@ -23,6 +23,7 @@ const getDroppable = (item: DraggedItem, cards: PlayingCard[]): boolean => {
 
 export const TableuPile = ({ cards, index }: Pile): JSX.Element => {
   const nextState = CardState.TableuPile;
+  // eslint-disable-next-line
   const [{ canDrop, isOver }, drop] = useDrop({
     accept: typeOfCard,
     canDrop: (item: any) => getDroppable(item, cards),
