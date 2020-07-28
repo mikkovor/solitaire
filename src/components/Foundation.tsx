@@ -37,38 +37,36 @@ const getDroppable = (
   return false;
 };
 
-export const Foundation = memo(
-  ({ cards, index, foundationSuit, nextCard }: FoundationProps): JSX.Element => {
-    const nextState = CardState.Foundation;
-    const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
-    const [{ canDrop, isOver }, drop] = useDrop({
-      accept: typeOfCard,
-      canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
-      drop: () => ({ index, nextState }),
-      collect: monitor => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop()
-      })
-    });
+export const Foundation = ({ cards, index, foundationSuit, nextCard }: FoundationProps): JSX.Element => {
+  const nextState = CardState.Foundation;
+  const tableuPiles = useSelector<RootState, PlayingCard[][]>(selectTableuPiles);
+  const [{ canDrop, isOver }, drop] = useDrop({
+    accept: typeOfCard,
+    canDrop: (item: DraggedItem) => getDroppable(item, nextCard, foundationSuit, tableuPiles[item.card.index]),
+    drop: () => ({ index, nextState }),
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
+  });
 
-    return (
-      <div ref={drop} className="drop-target unselectable talon-foundation">
-        <div className="card-border">
-          <img
-            alt="foundation"
-            src={require(`../assets/${foundationSuit}.svg`)}
-            className="foundation-suit unselectable"
-            onDragStart={(e): void => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            width="30px"
-          />
-          {cards.map((card: PlayingCard, i: number) => (
-            <Card offset={0} key={card.id} card={card} isLastCard={i === cards.length - 1 ? true : false} />
-          ))}
-        </div>
+  return (
+    <div ref={drop} className="drop-target unselectable talon-foundation">
+      <div className="card-border">
+        <img
+          alt="foundation"
+          src={require(`../assets/${foundationSuit}.svg`)}
+          className="foundation-suit unselectable"
+          onDragStart={(e): void => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          width="30px"
+        />
+        {cards.map((card: PlayingCard, i: number) => (
+          <Card offset={0} key={card.id} card={card} isLastCard={i === cards.length - 1 ? true : false} />
+        ))}
       </div>
-    );
-  }
-);
+    </div>
+  );
+};

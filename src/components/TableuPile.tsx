@@ -21,46 +21,44 @@ const getDroppable = (item: DraggedItem, cards: PlayingCard[]): boolean => {
   return false;
 };
 
-export const TableuPile = memo(
-  ({ cards, index }: Pile): JSX.Element => {
-    const nextState = CardState.TableuPile;
-    const [{ canDrop, isOver }, drop] = useDrop({
-      accept: typeOfCard,
-      canDrop: (item: any) => getDroppable(item, cards),
-      drop: () => ({ index, nextState }),
-      collect: monitor => ({
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop()
-      })
-    });
+export const TableuPile = ({ cards, index }: Pile): JSX.Element => {
+  const nextState = CardState.TableuPile;
+  const [{ canDrop, isOver }, drop] = useDrop({
+    accept: typeOfCard,
+    canDrop: (item: any) => getDroppable(item, cards),
+    drop: () => ({ index, nextState }),
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop()
+    })
+  });
 
-    const xs = useMedia("(max-width: 525px)");
-    const sm = useMedia("(max-width: 710px)");
-    const md = useMedia("(max-width: 940px)");
+  const xs = useMedia("(max-width: 525px)");
+  const sm = useMedia("(max-width: 710px)");
+  const md = useMedia("(max-width: 940px)");
 
-    const getOffsetByMedia = useCallback((): number => {
-      if (xs) {
-        return 15;
-      } else if (sm) {
-        return 21;
-      } else if (md) {
-        return 27;
-      } else return 33;
-    }, [xs, sm, md]);
+  const getOffsetByMedia = useCallback((): number => {
+    if (xs) {
+      return 15;
+    } else if (sm) {
+      return 21;
+    } else if (md) {
+      return 27;
+    } else return 33;
+  }, [xs, sm, md]);
 
-    return (
-      <div ref={drop} className="drop-target">
-        <div className="card-border">
-          {cards.map((card: PlayingCard, i: number) => (
-            <Card
-              offset={getOffSet(i, getOffsetByMedia())}
-              key={card.id}
-              card={card}
-              isLastCard={i === cards.length - 1 ? true : false}
-            />
-          ))}
-        </div>
+  return (
+    <div ref={drop} className="drop-target">
+      <div className="card-border">
+        {cards.map((card: PlayingCard, i: number) => (
+          <Card
+            offset={getOffSet(i, getOffsetByMedia())}
+            key={card.id}
+            card={card}
+            isLastCard={i === cards.length - 1 ? true : false}
+          />
+        ))}
       </div>
-    );
-  }
-);
+    </div>
+  );
+};

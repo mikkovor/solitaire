@@ -29,6 +29,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
           index: action.payload.index,
           isDragging: false
         });
+
         if (action.payload.movedCard.state === CardState.Deck) {
           draft.waste = draft.waste.filter(card => card.id !== action.payload.movedCard.id);
         } else {
@@ -57,6 +58,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
             index: action.payload.index,
             isDragging: false
           });
+
           if (action.payload.movedCard.state === CardState.Deck) {
             draft.waste = draft.waste.filter(card => card.id !== action.payload.movedCard.id);
           } else {
@@ -66,6 +68,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
           }
         }
       });
+
     case GameActionTypes.TurnCard:
       return produce(state, draft => {
         draft.tableuPiles[action.payload.index].map((card, i) => {
@@ -76,6 +79,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
           return card;
         });
       });
+
     case GameActionTypes.DrawCard:
       return produce(state, draft => {
         if (draft.deck.length) {
@@ -85,6 +89,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
           draft.waste = [];
         }
       });
+
     case GameActionTypes.NewGame:
       return produce(state, draft => {
         draft.tableuPiles = action.payload.tableuPiles;
@@ -102,6 +107,7 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
               card.id === action.payload.movedCard.id ? { ...card, isDragging: action.payload.isDragging } : { ...card }
             );
             break;
+
           case CardState.Foundation:
             draft.foundations[action.payload.movedCard.index] = draft.foundations[
               action.payload.movedCard.index
@@ -109,11 +115,11 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
               card.id === action.payload.movedCard.id ? { ...card, isDragging: action.payload.isDragging } : { ...card }
             );
             break;
+
           case CardState.TableuPile:
             const indexOfCard = draft.tableuPiles[action.payload.movedCard.index].findIndex(
               card => card.id === action.payload.movedCard.id
             );
-
             draft.tableuPiles[action.payload.movedCard.index] = draft.tableuPiles[
               action.payload.movedCard.index
             ].map((card, index) =>
@@ -125,12 +131,14 @@ export const gameReducer = (state = initialState, action: GameActions): GameStat
     case GameActionTypes.CardDoubleClicked:
       return produce(state, draft => {
         const suitIndex = suits.indexOf(action.payload.doubleClickedCard.suit);
+
         if (draft.foundations[suitIndex].length + 1 === action.payload.doubleClickedCard.rank) {
           draft.foundations[suitIndex].push({
             ...action.payload.doubleClickedCard,
             index: suitIndex,
             state: CardState.Foundation
           });
+
           if (action.payload.doubleClickedCard.state === CardState.TableuPile) {
             draft.tableuPiles[action.payload.doubleClickedCard.index] = draft.tableuPiles[
               action.payload.doubleClickedCard.index
