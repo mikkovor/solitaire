@@ -14,19 +14,14 @@ I should've thought out the structure and what i want to do more carefully in th
 
 Some things I am not so sure about are the nested arrays in Tableu Piles and Foundations. I used immer so setting state in reducer was easy without accidentally mutating it  but some of the logic around swapping cards from one place to another could use a face lift for sure. 
 
-I had thought about using a middleware of sorts (Redux-Saga for example) where i would listen for lets say CARDS_MOVED action and i would do the necessary logic inside the saga and just dispatch the needed actions that would only act as state setters. At the moment I am doing quite a bit of logic inside the reducer and I am not a big fan, though it works. 
-
 ## ToDo
 
 * Add animations, this is next in the list for sure
 * CSS is a bit of a mess. Need to clean that up and maybe use css modules or some css-in-js
-* Move logic from reducer to middleware
 * Sometimes clicking the deck there's a delay of some milliseconds, don't know why. 
 * Add scores, though i only ever used the time personally
-* Adding some sort of backend and db to track high scores would be sweet but protecting it from cheating seems like a hard thing to do. Would be an interesting thing to try. 
-* Using some of sort of typed action creator instead of manually creating every one of them would be ideal
-* Create some tests     
-  
+* Adding some sort of backend and db to track high scores would be sweet but protecting it from cheating seems like a hard thing to do without holding game state on the server. Would be an interesting thing to try. 
+
 #### Assets used
 
 [Playing cards](https://www.me.uk/cards/)  
